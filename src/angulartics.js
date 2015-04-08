@@ -164,6 +164,7 @@ angular.module('angulartics', [])
           $analytics.pageTrack(url, $location);
         } else {
           $analytics.pageTrack($window.location.pathname, $location);
+          //$analytics.pageTrack($location.absUrl(), $location);
         }
       }
     }]);
@@ -178,6 +179,7 @@ angular.module('angulartics', [])
       if ($injector.has('$route')) {
         $rootScope.$on('$routeChangeSuccess', function (event, current) {
           if (current && (current.$$route||current).redirectTo) return;
+          //var url = $analytics.settings.pageTracking.basePath + $location.url();
           var url = $window.location.pathname;
           $analytics.pageTrack(url, $location);
         });

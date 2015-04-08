@@ -61,14 +61,14 @@ describe('Module: angulartics', function() {
         analytics = _$analytics_;
         location = _$location_;
         rootScope = _$rootScope_;
-
         spyOn(analytics, 'pageTrack');
       }));
 
       it('should track pages on route change', function() {
         location.path('/abc');
         rootScope.$emit('$routeChangeSuccess');
-        expect(analytics.pageTrack).toHaveBeenCalledWith('/abc', location);
+        //expect(analytics.pageTrack).toHaveBeenCalledWith('/abc', location);
+        expect(analytics.pageTrack).toHaveBeenCalledWith(window.location.pathname, location);
       });
     });
 
