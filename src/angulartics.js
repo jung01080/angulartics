@@ -137,7 +137,7 @@ angular.module('angulartics', [])
   return provider;
 })
 
-.run(['$rootScope', '$window', '$analytics', '$injector', function ($rootScope, $window, $analytics, $injector) {
+.run(['$rootScope', '$window', '$analytics', '$injector', '$timeout', function ($rootScope, $window, $analytics, $injector, $timeout) {
   if ($analytics.settings.pageTracking.autoTrackFirstPage) {
     $injector.invoke(['$location', function ($location) {
       /* Only track the 'first page' if there are no routes or states on the page */
@@ -181,13 +181,17 @@ angular.module('angulartics', [])
           if (current && (current.$$route||current).redirectTo) return;
           //var url = $analytics.settings.pageTracking.basePath + $location.url();
           var url = $window.location.pathname;
+
           $analytics.pageTrack(url, $location);
         });
       }
       if ($injector.has('$state')) {
         $rootScope.$on('$stateChangeSuccess', function (event, current) {
           var url = $analytics.settings.pageTracking.basePath + $location.url();
-          $analytics.pageTrack(url, $location);
+	        $timeout(function () {
+		        $analytics.pageTrack(url, $location);
+	        }, 500);
+
         });
       }
     }]);
