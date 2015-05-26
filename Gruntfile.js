@@ -76,7 +76,7 @@ module.exports = function(grunt) {
    require('load-grunt-tasks')(grunt);
 
    grunt.registerTask('test', ['jshint', 'karma']);
-   grunt.registerTask('default', ['jshint', 'karma', 'uglify:predist', 'concat:dist', 'uglify:dist']);
+   grunt.registerTask('default', ['jshint', 'uglify:predist', 'concat:dist', 'uglify:dist']);
 
    grunt.registerTask('release', 'Release a new version, push it and publish it', function(target) {
      if (!target) {
